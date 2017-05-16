@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package library_service;
+
+// LibraryService
+service LibraryService {
+    rpc CreateBook(CreateBookRequest) returns(Book) {
+    };
+    rpc GetBook(GetBookRequest) returns(Book) {
+    };
+}
+
+// Book resource
+message Book {
+    // The resource name of the book. Has the format: "books/{book_id}".
+    string name = 1;
+
+    // The title of the book.
+    string title = 2;
+}
+
+message CreateBookRequest {
+    // The resource name of the parent. Has the format: "".
+    string parent = 1;
+
+    // The id of the book.
+    string book_id = 2;
+
+    // The book resource.
+    Book book = 3;
+}
+
+message GetBookRequest {
+    // The resource name of the book. Has the format: "books/{book_id}".
+    string name = 1;
+}
