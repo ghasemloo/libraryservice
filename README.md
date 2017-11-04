@@ -14,13 +14,17 @@ The following instructions are tested on Ubuntu 16.04 (LTS).
 
 1.  Install Bazel
 
-    _Bazel_ is our build tool.
+    [Bazel](https://bazel.build) is our build tool. It is written in [Java](https://www.java.com/). Install Java and then Bazel.
 
-    [Instructions for intalling Bazel on Ubuntu](https://bazel.build/versions/master/docs/install-ubuntu.html).
+    ```shell
+    $ sudo apt-get install bazel
+    ```
+
+    [Complete instructions for intalling Bazel on Ubuntu](https://bazel.build/versions/master/docs/install-ubuntu.html).
 
 1. Install Git
 
-    _Git_ is used by Bazel to download some external dependencies.
+    [Git](https://git-scm.com) is our version control system. It is used by Bazel to download some of our external dependencies (like [Protocol Buffers](https://github.com/google/protobuf), [gRPC](https://github.com/grpc/grpc-go), and Bazel's [Go rules](https://github.com/bazelbuild/rules_go).
 
     ```shell
     $ sudo apt-get install git
@@ -28,21 +32,25 @@ The following instructions are tested on Ubuntu 16.04 (LTS).
 
 1. (Optional) Install Go
 
-    The service and client are written in _Go_.
+    [Go](https://golang.org) is a programming language and is very good at writting large-scale distributed systems. Our service and client are written in Go.
 
-    [Instructions for installing Go on Ubuntu](https://github.com/golang/go/wiki/Ubuntu)
+    ```shell
+    $ sudo apt-get install golang-go 
+    ```
+
+    [Compelte instructions for installing Go on Ubuntu](https://github.com/golang/go/wiki/Ubuntu)
 
 1. (Optional) Install Gazelle
 
-    _Gazelle_ automatically generated Bazel build files for Go.
+    [Gazelle](https://github.com/bazelbuild/rules_go/tree/master/go/tools/gazelle) is a helper tool that automatically generates Bazel BUILD files for Go and makes your life easier.
 
     ```shell
-    $ go install github.com/bazelbuild/rules_go/go/tools/gazelle/gazelle
+    $ go get -u github.com/bazelbuild/rules_go/go/tools/gazelle/gazelle
     ```
 
 1. (Optional) Install Buildifier
 
-    _Buildifier_ cleans up and formats Bazel build files.
+    [Bazel Buildtools](https://github.com/bazelbuild/buildtools) are helpers tools for Bazel. [Buildifier](https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md) cleans up and formats Bazel build files.
 
     ```shell
     $ go get github.com/bazelbuild/buildifier/buildifier
