@@ -59,7 +59,7 @@ The following instructions are tested on Ubuntu 16.04 (LTS).
 ## Clone, Build, Test
 
 ```shell
-$ git clone github.com/ghasemloo/libraryservice
+$ git clone git@github.com:ghasemloo/libraryservice.git
 $ cd libraryservice
 $ bazel build ...
 $ bazel test ...
