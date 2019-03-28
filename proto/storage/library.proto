@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package library;
+
+// It is a good practice to keep the API protos messages (wire) separate from the internal server proto messages (storage). 
+// This separation of wire from storage proto message allows flexibility to modify one without the other. In the long run
+// this separation pays off for the extra effort of translating between the wire and storage protos.
+
+// Book resource. Internal to the server.
+message Book {
+    // Book id.
+    string id = 1;
+
+    // Title.
+    string title = 2;
+}

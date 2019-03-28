@@ -11,8 +11,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	lpb "github.com/ghasemloo/libraryservice/proto/internal/library_proto"
-	lspb "github.com/ghasemloo/libraryservice/proto/library_service_proto"
+	lspb "github.com/ghasemloo/libraryservice/proto"
+	lpb "github.com/ghasemloo/libraryservice/proto/storage"
 )
 
 // Library object.

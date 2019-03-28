@@ -10,7 +10,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	lspb "github.com/ghasemloo/libraryservice/proto/library_service_proto"
+	lspb "github.com/ghasemloo/libraryservice/proto"
 )
 
 var (

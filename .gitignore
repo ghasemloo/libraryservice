@@ -28,3 +28,6 @@ _testmain.go
 
 # Bazel generated files
 /bazel-*
+
+# vscode workspace file.
+/*.code-workspace

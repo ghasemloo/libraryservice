@@ -6,7 +6,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"golang.org/x/net/context"
 
-	lspb "github.com/ghasemloo/libraryservice/proto/library_service_proto"
+	lspb "github.com/ghasemloo/libraryservice/proto"
 )
 
 var (

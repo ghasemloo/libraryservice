@@ -1,10 +1,39 @@
 # Bazel WORKSPACE
 
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Contains Go repository rules
+http_archive(
+    name = "io_bazel_rules_go",
+    url = "https://github.com/bazelbuild/rules_go/releases/download/0.18.1/rules_go-0.18.1.tar.gz",
+    sha256 = "77dfd303492f2634de7a660445ee2d3de2960cbd52f97d8c0dffa9362d3ddef9",
+)
+
+# Contains Gazelle
+http_archive(
+    name = "bazel_gazelle",
+    urls = ["https://github.com/bazelbuild/bazel-gazelle/releases/download/0.17.0/bazel-gazelle-0.17.0.tar.gz"],
+    sha256 = "3c681998538231a2d24d0c07ed5a7658cb72bfb5fd4bf9911157c0e9ac6a2687",
+)
+
+# Load Go repository rules
+load(
+    "@io_bazel_rules_go//go:deps.bzl",
+    "go_rules_dependencies",
+    "go_register_toolchains",
+)
+go_rules_dependencies()
+go_register_toolchains()
+
+# Load Gazelle
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+gazelle_dependencies()
+
 # Contains Git repository rules
 http_archive(
     name = "io_bazel",
-    sha256 = "2b737be42678900470ae9e48c975ac5b2296d9ae23c007bf118350dbe7c0552b",
-    urls = ["https://github.com/bazelbuild/bazel/releases/download/0.4.5/bazel-0.4.5-dist.zip"],
+    sha256 = "621d2a97899a88850a913eabf9285778331a309fd4658b225b1377f80060fa85",
+    url = "https://github.com/bazelbuild/bazel/releases/download/0.24.0/bazel-0.24.0-dist.zip",
 )
 
 # Load Git repository rules
@@ -14,29 +43,10 @@ load(
     "new_git_repository",
 )
 
-# Cotnains Go repository rules
-http_archive(
-    name = "io_bazel_rules_go",
-    url = "https://github.com/bazelbuild/rules_go/releases/download/0.7.0/rules_go-0.7.0.tar.gz",
-    sha256 = "91fca9cf860a1476abdc185a5f675b641b60d3acf0596679a27b580af60bf19c",
-)
-
-# Load Go repository rules
-load(
-    "@io_bazel_rules_go//go:def.bzl",
-    "go_rules_dependencies",
-    "go_register_toolchains",
-    "go_repository",
-)
-go_rules_dependencies()
-go_register_toolchains()
-
 # Load Go Proto repository rules
-load(
-    "@io_bazel_rules_go//proto:def.bzl",
-    "proto_register_toolchains",
+load("@io_bazel_rules_go//proto:def.bzl",
+    "go_proto_library",
 )
-proto_register_toolchains()
 
 # Dependencies
 
@@ -48,10 +58,9 @@ go_repository(
 
 go_repository(
     name = "com_github_golang_protobuf",
-    commit = "fec3b39b059c0f88fa6b20f5ed012b1aa203a8b4", # 2017-05-12
+    commit = "aa810b61a9c79d51363740d207bb46cf8e620ed5", # 2017-05-12 v1.2.0 
     importpath = "github.com/golang/protobuf",
 )
-
 
 # This is required by gRPC.
 go_repository(

@@ -1,7 +1,7 @@
 # A simple LibraryService to demonstrate how to use Bazel+Go+gRPC
 
 A simple library service (server and client).
- 
+
 * Service defined in [Protocol Buffer v3](https://developers.google.com/protocol-buffers/docs/proto3)
 (proto3).
 * Programming language [The Go Programming Langauge](https://golang.org/) (golang).
@@ -35,17 +35,17 @@ The following instructions are tested on Ubuntu 16.04 (LTS).
     [Go](https://golang.org) is a programming language and is very good at writting large-scale distributed systems. Our service and client are written in Go.
 
     ```shell
-    $ sudo apt-get install golang-go 
+    $ sudo apt-get install golang-go
     ```
 
     [Compelte instructions for installing Go on Ubuntu](https://github.com/golang/go/wiki/Ubuntu)
 
 1. (Optional) Install Gazelle
 
-    [Gazelle](https://github.com/bazelbuild/rules_go/tree/master/go/tools/gazelle) is a helper tool that automatically generates Bazel BUILD files for Go and makes your life easier.
+    [Gazelle](https://github.com/bazelbuild/bazel-gazelle) is a helper tool that automatically generates Bazel BUILD files for Go and makes your life easier.
 
     ```shell
-    $ go get -u github.com/bazelbuild/rules_go/go/tools/gazelle/gazelle
+    $ go get -u github.com/bazelbuild/bazel-gazelle/cmd/gazelle
     ```
 
 1. (Optional) Install Buildifier
@@ -69,11 +69,11 @@ $ bazel test ...
 
 In one terminal run the server:
 ```shell
-$ ./bazel-bin/server/server --logtostderr
+$ bazel run server/server -- --logtostderr
 ```
 In another terminal run the client to send requests to the server:
 ```shell
-$ ./bazel-bin/client/client --logtostderr
+$ bazel run client/client -- --logtostderr
 ```
 
 ## References
