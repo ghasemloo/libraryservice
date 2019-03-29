@@ -6,7 +6,10 @@ go_library(
     name = "go_default_library",
     srcs = ["library.go"],
     importpath = "github.com/ghasemloo/libraryservice/server/library",
-    visibility = ["//server:__subpackages__"],
+    visibility = [
+        "//server:__subpackages__",
+        "//tests:__subpackages__",
+    ],
     deps = [
         "//proto:go_default_library",
         "//proto/storage:go_default_library",

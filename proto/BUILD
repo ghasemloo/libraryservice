@@ -24,5 +24,6 @@ go_library(
     visibility = [
         "//client:__subpackages__",
         "//server:__subpackages__",
+        "//tests:__subpackages__",
     ],
 )

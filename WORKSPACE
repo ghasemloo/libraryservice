@@ -88,3 +88,9 @@ go_repository(
     commit = "74de082e2cca95839e88aa0aeee5aadf6ce7710f", # 2019-02-21
     importpath = "golang.org/x/net",
 )
+
+go_repository(
+    name = "com_github_google_go_cmp",
+    commit = "3af367b6b30c263d47e8895973edcca9a49cf029", # 2018-02-19 v0.2.0
+    importpath = "github.com/google/go-cmp",
+)

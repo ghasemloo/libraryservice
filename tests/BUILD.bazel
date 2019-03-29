@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "go_default_test",
+    srcs = ["clientserver_test.go"],
+    visibility = ["//tests:__subpackages__"],
+    deps = [
+        "//proto:go_default_library",
+        "//server/library:go_default_library",
+        "//tests/fakegrpc:go_default_library",
+        "@com_github_golang_protobuf//proto:go_default_library",
+        "@com_github_google_go_cmp//cmp:go_default_library",
+    ],
+)
