@@ -1,4 +1,5 @@
 # Bazel WORKSPACE
+# Dependencies last updated on 2019-03-29
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
@@ -58,32 +59,32 @@ go_repository(
 
 go_repository(
     name = "com_github_golang_protobuf",
-    commit = "aa810b61a9c79d51363740d207bb46cf8e620ed5", # 2017-05-12 v1.2.0 
+    commit = "b5d812f8a3706043e23a9cd5babf2e5423744d30", # 2019-02-28 v1.3.1 
     importpath = "github.com/golang/protobuf",
 )
 
 # This is required by gRPC.
 go_repository(
     name = "org_golang_google_genproto",
-    commit = "411e09b969b1170a9f0c467558eb4c4c110d9c77", # 2017-04-04
+    commit = "d831d65fe17df2e52bcc4316d4a9f7a418701f43", # 2019-03-27
     importpath = "google.golang.org/genproto",
 )
 
 go_repository(
     name = "org_golang_google_grpc",
-    commit = "d2e1b51f33ff8c5e4a15560ff049d200e83726c5", # 2017-04-18
+    commit = "3507fb8e1a5ad030303c106fef3a47c9fdad16ad", # 2019-03-20 v1.19.1 
     importpath = "google.golang.org/grpc",
 )
 
 # This is required by gRPC.
 go_repository(
     name = "org_golang_x_text",
-    commit = "19e51611da83d6be54ddafce4a4af510cb3e9ea4", # 2017-04-21
+    commit = "e3703dcdd614d2d7488fff034c75c551ea25da95", # 2018-12-15
     importpath = "golang.org/x/text",
 )
 
 go_repository(
     name = "org_golang_x_net",
-    commit = "34057069f4ab13dc4433c68d368737ebeafcccdc", # 2017-05-09
+    commit = "74de082e2cca95839e88aa0aeee5aadf6ce7710f", # 2019-02-21
     importpath = "golang.org/x/net",
 )
