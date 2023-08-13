@@ -35,45 +35,45 @@ http_archive(
 )
 
 # Contains Protocol Buffer rules.
-# http_archive(
-#     name = "rules_proto",
-#     sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",  # 2022-12-27
-#     strip_prefix = "rules_proto-5.3.0-21.7",
-#     urls = [
-#         "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
-#     ],
-# )
+http_archive(
+    name = "rules_proto",
+    sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",  # 2022-12-27
+    strip_prefix = "rules_proto-5.3.0-21.7",
+    urls = [
+        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
+    ],
+)
 
 # Contains Protocol Buffer rules.
-# Note: versions after v21.12 require C++ 14 and above.
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09",  # 2022-12-14 v21.12
-    strip_prefix = "protobuf-21.12",
+    sha256 = "850357336189c470e429e9bdffca92229d8cd5b7f84aa2f3b4c5fdb80ce8351b",  # 2023-08-08
+    strip_prefix = "protobuf-24.0",
     urls = [
-        "https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protobuf-all-21.12.tar.gz",
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v24.0.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/releases/download/v24.0/protobuf-24.0.tar.gz",
     ],
 )
 
 # Contains Google APIs proto files.
-# http_archive(
-#     name = "googleapis",
-#     sha256 = "9d1a930e767c93c825398b8f8692eca3fe353b9aaadedfbcf1fca2282c85df88",  # 2022-10-20
-#     strip_prefix = "googleapis-64926d52febbf298cb82a8f472ade4a3969ba922",
-#     urls = [
-#         "https://github.com/googleapis/googleapis/archive/64926d52febbf298cb82a8f472ade4a3969ba922.zip",
-#     ],
-# )
+http_archive(
+    name = "googleapis",
+    sha256 = "9d1a930e767c93c825398b8f8692eca3fe353b9aaadedfbcf1fca2282c85df88",  # 2022-10-20
+    strip_prefix = "googleapis-64926d52febbf298cb82a8f472ade4a3969ba922",
+    urls = [
+        "https://github.com/googleapis/googleapis/archive/64926d52febbf298cb82a8f472ade4a3969ba922.zip",
+    ],
+)
 
 # Contains Bazel build tools.
-# http_archive(
-#     name = "com_github_bazelbuild_buildtools",
-#     sha256 = "977a0bd4593c8d4c8f45e056d181c35e48aa01ad4f8090bdb84f78dca42f47dc",  # 2023-04-27 v6.1.2
-#     strip_prefix = "buildtools-6.1.2",
-#     urls = [
-#         "https://github.com/bazelbuild/buildtools/archive/refs/tags/v6.1.2.tar.gz"
-#     ],
-# )
+http_archive(
+    name = "com_github_bazelbuild_buildtools",
+    sha256 = "977a0bd4593c8d4c8f45e056d181c35e48aa01ad4f8090bdb84f78dca42f47dc",  # 2023-04-27 v6.1.2
+    strip_prefix = "buildtools-6.1.2",
+    urls = [
+        "https://github.com/bazelbuild/buildtools/archive/refs/tags/v6.1.2.tar.gz",
+    ],
+)
 
 # -----------------------------------------------------------------------------
 # Load Bazel rules.
@@ -100,11 +100,11 @@ load(
 )
 
 # Load Protocol Buffers rules.
-# load(
-#     "@rules_proto//proto:repositories.bzl",
-#     "rules_proto_dependencies",
-#     "rules_proto_toolchains",
-# )
+load(
+    "@rules_proto//proto:repositories.bzl",
+    "rules_proto_dependencies",
+    "rules_proto_toolchains",
+)
 
 # Load Protocol Buffers dependencies.
 load(
@@ -113,14 +113,14 @@ load(
 )
 
 # Load Google APIs rules.
-# load(
-#     "@googleapis//:repository_rules.bzl",
-#     "switched_rules_by_language",
-# )
+load(
+    "@googleapis//:repository_rules.bzl",
+    "switched_rules_by_language",
+)
 
-# switched_rules_by_language(
-#     name = "com_google_googleapis_imports",
-# )
+switched_rules_by_language(
+    name = "com_google_googleapis_imports",
+)
 
 # -----------------------------------------------------------------------------
 # Go dependencies.
@@ -135,9 +135,9 @@ go_dependencies()
 # Register Bazel rules.
 # -----------------------------------------------------------------------------
 
-# rules_proto_dependencies()
+rules_proto_dependencies()
 
-# rules_proto_toolchains()
+rules_proto_toolchains()
 
 go_rules_dependencies()
 

@@ -1,0 +1,5 @@
+# These are added for com_google_protobuf,
+# as versions after v21.12 require C++14 and
+# future versions will require C++17
+build --cxxopt=-std=c++17
+build --host_cxxopt=-std=c++17
