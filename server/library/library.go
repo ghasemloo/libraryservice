@@ -6,12 +6,12 @@ import (
 	"sync"
 
 	"github.com/golang/glog"
-	"github.com/golang/protobuf/proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 
-	lspb "github.com/ghasemloo/libraryservice/proto"
+	lspb "github.com/ghasemloo/libraryservice/proto/api"
 	lpb "github.com/ghasemloo/libraryservice/proto/storage"
 )
 
@@ -21,6 +21,9 @@ type Library struct {
 	mu sync.Mutex
 	// books maps book id to .
 	books map[string]*lpb.Book
+
+	// Embed the unimplemented server.
+	lspb.UnimplementedLibraryServiceServer
 }
 
 // New creates a new Library object.
@@ -85,3 +88,5 @@ func (l *Library) GetBook(ctx context.Context, req *lspb.GetBookRequest) (*lspb.
 		Title: book.GetTitle(),
 	}, nil
 }
+
+var _ lspb.LibraryServiceServer = (*Library)(nil)

@@ -1,96 +1,148 @@
 # Bazel WORKSPACE
-# Dependencies last updated on 2019-03-29
+# Dependencies last updated on 2023-08-10
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# Contains Go repository rules
-http_archive(
-    name = "io_bazel_rules_go",
-    url = "https://github.com/bazelbuild/rules_go/releases/download/0.18.1/rules_go-0.18.1.tar.gz",
-    sha256 = "77dfd303492f2634de7a660445ee2d3de2960cbd52f97d8c0dffa9362d3ddef9",
-)
+# -----------------------------------------------------------------------------
+# Bazel rules.
+# -----------------------------------------------------------------------------
 
-# Contains Gazelle
-http_archive(
-    name = "bazel_gazelle",
-    urls = ["https://github.com/bazelbuild/bazel-gazelle/releases/download/0.17.0/bazel-gazelle-0.17.0.tar.gz"],
-    sha256 = "3c681998538231a2d24d0c07ed5a7658cb72bfb5fd4bf9911157c0e9ac6a2687",
-)
-
-# Load Go repository rules
-load(
-    "@io_bazel_rules_go//go:deps.bzl",
-    "go_rules_dependencies",
-    "go_register_toolchains",
-)
-go_rules_dependencies()
-go_register_toolchains()
-
-# Load Gazelle
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
-gazelle_dependencies()
-
-# Contains Git repository rules
+# Contains Git repository rules.
 http_archive(
     name = "io_bazel",
-    sha256 = "621d2a97899a88850a913eabf9285778331a309fd4658b225b1377f80060fa85",
-    url = "https://github.com/bazelbuild/bazel/releases/download/0.24.0/bazel-0.24.0-dist.zip",
+    sha256 = "8cd7feac58193be2bcba451ba6688a46824d37ca6359ff58e0d44eb98f042948",  # 2023-08-08
+    url = "https://github.com/bazelbuild/bazel/releases/download/6.3.2/bazel-6.3.2-dist.zip",
 )
 
-# Load Git repository rules
+# Contains Go repository rules.
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "278b7ff5a826f3dc10f04feaf0b70d48b68748ccd512d7f98bf442077f043fe3",  # 2023-07-10
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+    ],
+)
+
+# Contains Gazelle.
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "29218f8e0cebe583643cbf93cae6f971be8a2484cdcfa1e45057658df8d54002",  # 2023-07-11
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.32.0/bazel-gazelle-v0.32.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.32.0/bazel-gazelle-v0.32.0.tar.gz",
+    ],
+)
+
+# Contains Protocol Buffer rules.
+# http_archive(
+#     name = "rules_proto",
+#     sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",  # 2022-12-27
+#     strip_prefix = "rules_proto-5.3.0-21.7",
+#     urls = [
+#         "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
+#     ],
+# )
+
+# Contains Protocol Buffer rules.
+# Note: versions after v21.12 require C++ 14 and above.
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09",  # 2022-12-14 v21.12
+    strip_prefix = "protobuf-21.12",
+    urls = [
+        "https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protobuf-all-21.12.tar.gz",
+    ],
+)
+
+# Contains Google APIs proto files.
+# http_archive(
+#     name = "googleapis",
+#     sha256 = "9d1a930e767c93c825398b8f8692eca3fe353b9aaadedfbcf1fca2282c85df88",  # 2022-10-20
+#     strip_prefix = "googleapis-64926d52febbf298cb82a8f472ade4a3969ba922",
+#     urls = [
+#         "https://github.com/googleapis/googleapis/archive/64926d52febbf298cb82a8f472ade4a3969ba922.zip",
+#     ],
+# )
+
+# Contains Bazel build tools.
+# http_archive(
+#     name = "com_github_bazelbuild_buildtools",
+#     sha256 = "977a0bd4593c8d4c8f45e056d181c35e48aa01ad4f8090bdb84f78dca42f47dc",  # 2023-04-27 v6.1.2
+#     strip_prefix = "buildtools-6.1.2",
+#     urls = [
+#         "https://github.com/bazelbuild/buildtools/archive/refs/tags/v6.1.2.tar.gz"
+#     ],
+# )
+
+# -----------------------------------------------------------------------------
+# Load Bazel rules.
+# -----------------------------------------------------------------------------
+
+# Load Git rules.
 load(
     "@io_bazel//tools/build_defs/repo:git.bzl",
-    "git_repository",
-    "new_git_repository",
+    "git_repository",  # @unused
+    "new_git_repository",  # @unused
 )
 
-# Load Go Proto repository rules
-load("@io_bazel_rules_go//proto:def.bzl",
-    "go_proto_library",
+# Load Go rules.
+load(
+    "@io_bazel_rules_go//go:deps.bzl",
+    "go_register_toolchains",
+    "go_rules_dependencies",
 )
 
-# Dependencies
-
-go_repository(
-    name = "com_github_golang_glog",
-    commit = "23def4e6c14b4da8ac2ed8007337bc5eb5007998", # 2016-01-25
-    importpath = "github.com/golang/glog"
+# Load Gazelle rules.
+load(
+    "@bazel_gazelle//:deps.bzl",
+    "gazelle_dependencies",
 )
 
-go_repository(
-    name = "com_github_golang_protobuf",
-    commit = "b5d812f8a3706043e23a9cd5babf2e5423744d30", # 2019-02-28 v1.3.1 
-    importpath = "github.com/golang/protobuf",
+# Load Protocol Buffers rules.
+# load(
+#     "@rules_proto//proto:repositories.bzl",
+#     "rules_proto_dependencies",
+#     "rules_proto_toolchains",
+# )
+
+# Load Protocol Buffers dependencies.
+load(
+    "@com_google_protobuf//:protobuf_deps.bzl",
+    "protobuf_deps",
 )
 
-# This is required by gRPC.
-go_repository(
-    name = "org_golang_google_genproto",
-    commit = "d831d65fe17df2e52bcc4316d4a9f7a418701f43", # 2019-03-27
-    importpath = "google.golang.org/genproto",
-)
+# Load Google APIs rules.
+# load(
+#     "@googleapis//:repository_rules.bzl",
+#     "switched_rules_by_language",
+# )
 
-go_repository(
-    name = "org_golang_google_grpc",
-    commit = "3507fb8e1a5ad030303c106fef3a47c9fdad16ad", # 2019-03-20 v1.19.1 
-    importpath = "google.golang.org/grpc",
-)
+# switched_rules_by_language(
+#     name = "com_google_googleapis_imports",
+# )
 
-# This is required by gRPC.
-go_repository(
-    name = "org_golang_x_text",
-    commit = "e3703dcdd614d2d7488fff034c75c551ea25da95", # 2018-12-15
-    importpath = "golang.org/x/text",
-)
+# -----------------------------------------------------------------------------
+# Go dependencies.
+# -----------------------------------------------------------------------------
 
-go_repository(
-    name = "org_golang_x_net",
-    commit = "74de082e2cca95839e88aa0aeee5aadf6ce7710f", # 2019-02-21
-    importpath = "golang.org/x/net",
-)
+load("//:deps.bzl", "go_dependencies")
 
-go_repository(
-    name = "com_github_google_go_cmp",
-    commit = "3af367b6b30c263d47e8895973edcca9a49cf029", # 2018-02-19 v0.2.0
-    importpath = "github.com/google/go-cmp",
-)
+# gazelle:repository_macro deps.bzl%go_dependencies
+go_dependencies()
+
+# -----------------------------------------------------------------------------
+# Register Bazel rules.
+# -----------------------------------------------------------------------------
+
+# rules_proto_dependencies()
+
+# rules_proto_toolchains()
+
+go_rules_dependencies()
+
+go_register_toolchains(version = "1.21.0")  # 2023-08-08
+
+gazelle_dependencies()  #  (go_repository_default_config = "@//:WORKSPACE.bazel")
+
+protobuf_deps()

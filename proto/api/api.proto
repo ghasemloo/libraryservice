@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package library_service;
+option go_package = "github.com/ghasemloo/libraryservice/proto/api";
+
+package api;
 
 // LibraryService
 service LibraryService {

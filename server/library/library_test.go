@@ -3,10 +3,10 @@ package library
 import (
 	"testing"
 
-	"github.com/golang/protobuf/proto"
 	"golang.org/x/net/context"
+	"google.golang.org/protobuf/proto"
 
-	lspb "github.com/ghasemloo/libraryservice/proto"
+	lspb "github.com/ghasemloo/libraryservice/proto/api"
 )
 
 var (

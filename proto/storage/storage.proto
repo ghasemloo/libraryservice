@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package library;
+option go_package = "github.com/ghasemloo/libraryservice/proto/storage";
+
+package storage;
 
 // It is a good practice to keep the API protos messages (wire) separate from the internal server proto messages (storage). 
 // This separation of wire from storage proto message allows flexibility to modify one without the other. In the long run

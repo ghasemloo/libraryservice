@@ -45,7 +45,7 @@ The following instructions are tested on Ubuntu 16.04 (LTS).
     [Gazelle](https://github.com/bazelbuild/bazel-gazelle) is a helper tool that automatically generates Bazel BUILD files for Go and makes your life easier.
 
     ```shell
-    $ go get -u github.com/bazelbuild/bazel-gazelle/cmd/gazelle
+    $ go install github.com/bazelbuild/bazel-gazelle/cmd/gazelle@latest
     ```
 
 1. (Optional) Install Buildifier
@@ -53,19 +53,26 @@ The following instructions are tested on Ubuntu 16.04 (LTS).
     [Bazel Buildtools](https://github.com/bazelbuild/buildtools) are helpers tools for Bazel. [Buildifier](https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md) cleans up and formats Bazel build files.
 
     ```shell
-    $ go get github.com/bazelbuild/buildifier/buildifier
+    $ go install github.com/bazelbuild/buildtools/buildifier@latest
     ```
 
-## Clone, Build, Test
+## Clone
 
 ```shell
 $ git clone git@github.com:ghasemloo/libraryservice.git
 $ cd libraryservice
+```
+
+## Bazel
+
+### Build and Test
+
+```shell
 $ bazel build ...
 $ bazel test ...
 ```
 
-## Run the server and the clinet
+### Run the server and the client
 
 In one terminal run the server:
 ```shell
@@ -76,6 +83,72 @@ In another terminal run the client to send requests to the server:
 $ bazel run client/client -- --logtostderr
 ```
 
+## Go (without Bazel)
+
+### Go Module
+
+```shell
+$ go mod init github.com/ghasemloo/libraryservice
+$ go mod tidy
+```
+
+### Proto Compiler for Go
+
+Install Protobuf Compiler to generate Go packages for proto files:
+
+```shell
+$ sudo apt-get install protobuf-compiler
+$ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+$ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+```
+
+### Generated Go Proto Packages
+
+```shell
+$ protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative ./proto/api/api.proto
+$ protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative ./proto/storage/storage.proto
+```
+
+### Build and Test
+
+```shell
+$ go build ./...
+$ go test ./...
+```
+
+### Run the server and the client
+
+In two different terminals run:
+
+```shell
+$ go run ./server/main.go
+```
+
+```shell
+$ go run ./client/main.go
+```
+
+## Gazelle
+
+Updating `WORKSPACE.bazel` from `go.mod`:
+
+```shell
+$ gazelle update-repos --proto_import_prefix="github.com/ghasemloo/libraryservice" --from_file=./go.mod --prune
+```
+
+Creating/updating `BUILD.bazel` files:
+
+```shell
+$ gazelle fix -go_prefix github.com/ghasemloo/libraryservice
+```
+
+You can also use Bazel (`gazelle` commands and paramters are configured in the `BUILD.bazel`):
+
+```shell
+$ bazel run //:gazelle-update-repos
+$ bazel run //:gazelle
+```
+
 ## References
 
 * Bazel: http://bazel.build
@@ -83,5 +156,6 @@ $ bazel run client/client -- --logtostderr
 * Google API Style Guide: https://cloud.google.com/apis/design/
 * Proto3: https://developers.google.com/protocol-buffers/
 * gRPC: https://www.grpc.io/
+* gRPC Example: https://grpc.io/docs/languages/go/quickstart/
 * Google RPC [Status](https://github.com/googleapis/googleapis/blob/master/google/rpc/status.proto) and 
 [Canonical Error Codes](https://github.com/googleapis/googleapis/blob/master/google/rpc/codes.proto)

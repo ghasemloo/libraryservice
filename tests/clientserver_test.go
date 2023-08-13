@@ -6,10 +6,10 @@ import (
 
 	"github.com/ghasemloo/libraryservice/server/library"
 	"github.com/ghasemloo/libraryservice/tests/fakegrpc"
-	"github.com/golang/protobuf/proto"
 	"github.com/google/go-cmp/cmp"
+	"google.golang.org/protobuf/proto"
 
-	lspb "github.com/ghasemloo/libraryservice/proto"
+	lspb "github.com/ghasemloo/libraryservice/proto/api"
 )
 
 const (
